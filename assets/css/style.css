@@ -56,9 +56,43 @@ body {
     padding: 100px 0;
 }
 
-/* Header */
+/* Button */
+.btn-default {
+    border: none;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    padding: 10px 24px;
+    background-color: var(--secondary-clr);
+    color: #fff;
+    border-radius: 4px;
+    text-transform: capitalize;
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+}
+.btn-default:hover {
+    background-color: var(--main-clr);
+}
+/* Search */
+.phone-finder-search .form-control {
+    padding: 10px 20px;
+    border-radius: 4px 0 0 4px;
+    border: 1px solid var(--secondary-clr);
+    height: 45px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #000;
+    background-color: #fff;
+    box-shadow: none;
+}
 
-
+.phone-finder-search .form-control:focus {
+    border-color: var(--main-clr);
+    box-shadow: none;
+}
 
 
 
