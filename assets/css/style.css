@@ -1,0 +1,76 @@
+/* Variables */
+:root {
+    --main-clr: #FC4D5A;
+    --secondary-clr: #003DA7;
+    --body-clr: #383838;
+    --transition: all 0.3s ease-in-out;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Global Css */
+.fw-medium {
+    font-weight: 500;
+}
+
+.fw-semi-bold {
+    font-weight: 600;
+}
+
+.mg-text-color {
+    color: var(--body-clr);
+}
+
+.mg-primary-color {
+    color: var(--main-clr);
+}
+
+.mg-secondary-color {
+    color: var(--secondary-clr);
+}
+
+.mg-bg-primary {
+    background-color: var(--main-clr);
+}
+
+.mg-bg-secondary {
+    background-color: var(--secondary-clr);
+}
+
+.mg-shadow {
+    box-shadow: 0px 12px 30px rgba(0, 0, 0, .13);
+}
+
+/*spacing*/
+.mg-pt-100 {
+    padding-top: 100px;
+}
+
+.mg-pb-100 {
+    padding-bottom: 100px;
+}
+
+.mg-py-100 {
+    padding: 100px 0;
+}
+
+/* Header */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
