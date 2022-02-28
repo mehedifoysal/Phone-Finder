@@ -8,6 +8,9 @@
 
 body {
     font-family: 'Roboto', sans-serif;
+    background-color: rgba(0, 61, 167, 0.04);
+    /*background-image: url("../images/bg-pattern.png");*/
+    /*background-repeat: repeat;*/
 }
 a{
     text-decoration: none;
@@ -89,7 +92,7 @@ a{
     font-size: 16px;
     font-weight: 500;
     color: #000;
-    background-color: #fff;
+    background-color: transparent;
     box-shadow: none;
 }
 

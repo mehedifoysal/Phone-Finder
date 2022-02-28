@@ -24,7 +24,7 @@ const displayPhones = phones => {
         const phoneCard = document.createElement("div");
         phoneCard.classList.add('col', 'phone-card');
         phoneCard.innerHTML = `
-            <div class="card shadow border-0 p-2">
+            <div class="card shadow-sm border-0 p-2">
                 <div class="card-image text-center">
                     <img src="${phone.image}" alt="${phone.phone_name}" class="img-fluid">
                 </div>
