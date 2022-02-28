@@ -9,7 +9,9 @@
 body {
     font-family: 'Roboto', sans-serif;
 }
-
+a{
+    text-decoration: none;
+}
 /* Global Css */
 .fw-medium {
     font-weight: 500;
@@ -75,6 +77,8 @@ body {
 }
 .btn-default:hover {
     background-color: var(--main-clr);
+    color: #fff;
+    text-decoration: none;
 }
 /* Search */
 .phone-finder-search .form-control {
