@@ -49,28 +49,30 @@ const phoneDetails = async phoneSlug => {
     }
 }
 
-const displayPhoneDetails = phoneDetails =>{
-    const phoneDetailsModal = document.querySelector("#phone-details");
+const displayPhoneDetails = phoneDetails => {
+    const phoneDetailsModal = document.querySelector("#phone-details-content");
     phoneDetailsModal.textContent = "";
-    const {chips, description, features, images, phone_name, price, screen, storage, slug} = phoneDetails;
+    const {chipSet, displaySize, memory, sensors, storage} = phoneDetails.mainFeatures;
     phoneDetailsModal.innerHTML = `
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">${phoneDetails.phone_name}</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+        <div class="modal-header">
+            <h5 class="modal-title">${phoneDetails.name}</h5>
+            <button type="button" class="close btn-default" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="${phoneDetails.image}" alt="${phoneDetails.name}" class="img-fluid">
                 </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <img src="${phoneDetails.image}" alt="${phoneDetails.phone_name}" class="img-fluid">
-                        </div>
-                        <div class="col-md-8">
-                            
-                        </div>
-                    </div>
+                <div class="col-md-8">
+                    <ul class="mainFeatures">
+                        <li>Chipset: ${chipSet}</li>
+                        <li>Display Size: ${displaySize}</li>
+                        <li>Memory: ${memory}</li>
+                        <li>Sensors: ${sensors}</li>
+                        <li>Storage: ${storage}</li>
+                    </ul>
                 </div>
             </div>
         </div>
