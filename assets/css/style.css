@@ -105,7 +105,6 @@ a{
 }
 
 .phone-finder-search .form-control:focus {
-    border-color: var(--main-clr);
     box-shadow: none;
 }
 
@@ -155,7 +154,18 @@ a{
     flex: 0 0 70%
 }
 
-
+.modal-close{
+    border: none;
+    background-color: var(--secondary-clr);
+    color: #fff;
+    font-size: 22px;
+    padding: 5px 10px;
+    line-height: 24px;
+    transition: all 0.3s ease-in-out;
+}
+.modal-close:hover{
+    background-color: var(--main-clr);
+}
 
 
 
