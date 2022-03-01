@@ -6,7 +6,11 @@ document.getElementById('search-form').addEventListener('submit', async (e) => {
         try {
             const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${phoneKeyword}`);
             const data = await res.json();
-            displayPhones(data.data);
+            if(data.status) {
+                displayPhones(data.data);
+            } else {
+                alert('No phone found');
+            }
         } catch (error) {
             console.log(error);
         }
@@ -43,7 +47,11 @@ const phoneDetails = async phoneSlug => {
         const res = await fetch(`https://openapi.programming-hero.com/api/phone/${phoneSlug}`);
         const data = await res.json();
         console.log(data);
-        displayPhoneDetails(data.data);
+        if(data.status) {
+            displayPhoneDetails(data.data);
+        } else {
+            alert("Phone not found");
+        }
     } catch (error) {
         console.log(error);
     }
@@ -66,6 +74,7 @@ const displayPhoneDetails = phoneDetails => {
                     <img src="${phoneDetails.image}" alt="${phoneDetails.name}" class="img-fluid">
                 </div>
                 <div class="col-md-8">
+                    <h4>Main Features</h4>
                     <ul class="mainFeatures">
                         <li>Chipset: ${chipSet}</li>
                         <li>Display Size: ${displaySize}</li>
@@ -77,7 +86,6 @@ const displayPhoneDetails = phoneDetails => {
             </div>
         </div>
     `;
-
 }
 
 
