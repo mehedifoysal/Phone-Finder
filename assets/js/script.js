@@ -73,7 +73,7 @@ const displayPhones = (phones, offset = 20) => {
 
 const phoneDetails = async phoneSlug => {
     try {
-        const res = await fetch(`https://openapi.programming-hero.com/api/phone/${phoneSlug}asd`);
+        const res = await fetch(`https://openapi.programming-hero.com/api/phone/${phoneSlug}`);
         const data = await res.json();
         if(data.status) {
             displayPhoneDetails(data.data);
