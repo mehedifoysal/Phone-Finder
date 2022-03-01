@@ -31,11 +31,21 @@ const displayPhones = phones => {
                 <div class="card-body">
                     <h5 class="card-title">${phone.phone_name}</h5>
                     <p class="card-text">Brand: ${phone.brand}</p>
-                    <a href="#" class="btn-default">View More</a>
+                    <button data-bs-toggle="modal" data-bs-target="#phone-details" onclick="phoneDetails(${phone.slug})" class="btn-default">View More</button>
                 </div>
             </div>`;
         phoneGrid.appendChild(phoneCard);
     })
+}
+
+const phoneDetails = async phoneSlug => {
+    try {
+        const res = await fetch(`https://openapi.programming-hero.com/api/phone/${phoneSlug}`);
+        const data = await res.json();
+        displayPhoneDetails(data.data);
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 
