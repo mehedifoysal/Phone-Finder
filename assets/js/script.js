@@ -35,6 +35,21 @@ const displayPhones = phones => {
     toggleSpinner('none'); //hide loader
     toggleSearchResults('flex'); //show search results
 
+    console.log(phones.length);
+    if(phones.length > 20){
+        const loadMoreBtnContainer = document.getElementById('load-more-btn-container');
+        const loadMoreBtn = document.createElement("button");
+        loadMoreBtn.classList.add('btn-default', 'load-more');
+        loadMoreBtn.innerHTML = `<i class="fas fa-chevron-down"></i> Load More`;
+        loadMoreBtn.addEventListener('click', () => {
+            // loadMoreBtn.remove();
+            displayPhones(phones.slice(20, 40));
+        });
+        loadMoreBtnContainer.appendChild(loadMoreBtn);
+    }
+
+    phones = phones.slice(0, 20); //display only 20 phones
+    console.log(phones);
     phones?.forEach(phone => {
         const phoneCard = document.createElement("div");
         phoneCard.classList.add('col', 'phone-card');
@@ -50,7 +65,9 @@ const displayPhones = phones => {
                 </div>
             </div>`;
         phoneGrid.appendChild(phoneCard);
-    })
+    });
+
+
 }
 
 const phoneDetails = async phoneSlug => {
@@ -94,12 +111,12 @@ const displayPhoneDetails = phoneDetails => {
                         <div class="col-md-9">
                             <div class="specification-list">
                                 <div class="sp-wrap">
-                                    <div class="specification-label">Model</div>
-                                    <div class="specification-value">${phoneDetails.name}</div>
-                                </div>
-                                <div class="sp-wrap">
                                     <div class="specification-label">Brand</div>
                                     <div class="specification-value">${phoneDetails.brand}</div>
+                                </div>
+                                <div class="sp-wrap">
+                                    <div class="specification-label">Model</div>
+                                    <div class="specification-value">${phoneDetails.name}</div>
                                 </div>
                                 <div class="sp-wrap">
                                     <div class="specification-label">Release Date</div>
