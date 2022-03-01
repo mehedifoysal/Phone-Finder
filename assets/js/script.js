@@ -60,7 +60,7 @@ const phoneDetails = async phoneSlug => {
         if(data.status) {
             displayPhoneDetails(data.data);
         } else {
-            alert("Phone not found");
+            showErrorMessage("Phone not found");
         }
     } catch (error) {
         console.log(error);
@@ -70,31 +70,86 @@ const phoneDetails = async phoneSlug => {
 const displayPhoneDetails = phoneDetails => {
     const phoneDetailsModal = document.querySelector("#phone-details-content");
     phoneDetailsModal.textContent = "";
+
     const {chipSet, displaySize, memory, sensors, storage} = phoneDetails.mainFeatures;
+    const sensorText = sensors.join(', ');
     phoneDetailsModal.innerHTML = `
-        <div class="modal-body">
+        <div class="modal-body position-relative">
             <div class="row">
-                <div class="col-md-5">
-                    <img src="${phoneDetails.image}" alt="${phoneDetails.name}" class="img-fluid">
+                <div class="col-md-4">
+                    <img src="${phoneDetails.image}" alt="${phoneDetails.name}" class="img-fluid w-100">
                 </div>
-                <div class="col-md-7">
-                    <button type="button" class="close btn-default" data-bs-dismiss="modal" aria-label="Close">
+                <div class="col-md-8">
+                    <button type="button" class="close btn-default position-absolute top-0 end-0" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h3>${phoneDetails.name}</h3>
-                    <h4>Main Features</h4>
-                    <ul class="mainFeatures">
-                        <li>Chipset: ${chipSet}</li>
-                        <li>Display Size: ${displaySize}</li>
-                        <li>Memory: ${memory}</li>
-                        <li>Sensors: ${sensors}</li>
-                        <li>Storage: ${storage}</li>
-                    </ul>
+                    <h4 class="fw-semi-bold pf-secondary-color">${phoneDetails.name}</h4>
+                    <div class="phone-specification">
+                        <div class="specifications">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="specification-header">
+                                        <h5>Overview</h5>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="specification-list">
+                                        <div class="sp-wrap">
+                                            <div class="specification-label">Model</div>
+                                            <div class="specification-value">${phoneDetails.name}</div>
+                                        </div>
+                                        <div class="sp-wrap">
+                                            <div class="specification-label">Brand</div>
+                                            <div class="specification-value">${phoneDetails.brand}</div>
+                                        </div>
+                                        <div class="sp-wrap">
+                                            <div class="specification-label">Release Date</div>
+                                            <div class="specification-value">${phoneDetails.releaseDate ? phoneDetails.releaseDate : 'Not published yet'}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="specifications">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="specification-header">
+                                        <h5>Main Features</h5>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="specification-list">
+                                        <div class="sp-wrap">
+                                            <div class="specification-label">Chipset</div>
+                                            <div class="specification-value">${chipSet}</div>
+                                        </div>
+                                        <div class="sp-wrap">
+                                            <div class="specification-label">Display Size</div>
+                                            <div class="specification-value">${displaySize}</div>
+                                        </div>
+                                        <div class="sp-wrap">
+                                            <div class="specification-label">Memoy</div>
+                                            <div class="specification-value">${memory}</div>
+                                        </div>
+                                        <div class="sp-wrap">
+                                            <div class="specification-label">Sensors</div>
+                                            <div class="specification-value">${sensorText}</div>
+                                        </div>
+                                        <div class="sp-wrap">
+                                            <div class="specification-label">Storage</div>
+                                            <div class="specification-value">${storage}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     `;
 }
+
 
 const toggleSpinner = displayStyle => {
     const spinner = document.querySelector('.spinner-border');
@@ -103,29 +158,23 @@ const toggleSpinner = displayStyle => {
 
 const toggleSearchResults = displayStyle => {
     const phoneGrid = document.querySelector('#phone-grid');
-    const errorMessage = document.querySelector('.error-message');
     phoneGrid.style.display = displayStyle;
-    errorMessage.style.display = displayStyle;
 }
 
 const showErrorMessage = message => {
-    const errorMessage = document.querySelector('.error-message');
-    errorMessage.textContent = ''; //clear error message
-    const errorDiv = document.createElement('div');
-    errorDiv.classList.add('alert', 'alert-danger');
-    errorDiv.innerHTML = message;
-    errorMessage.appendChild(errorDiv);
-    errorMessage.style.display = 'block';
-    // setTimeout(() => {
-    //     errorMessage.style.display = 'none';
-    //     errorMessage.textContent = ''; //clear error message
-    // }, 3000);
+    const toastMessage = document.getElementById('toast-message');
+    const toastMessageContent = document.querySelector('.toast-body');
+    toastMessageContent.textContent = message;
+    const toast = new bootstrap.Toast(toastMessage)
+    toast.show();
 }
 
 const hideErrorMessage = () => {
-    const errorMessage = document.querySelector('.error-message');
-    errorMessage.style.display = 'none';
-    errorMessage.textContent = ''; //clear error message
+    const toastMessage = document.getElementById('toast-message');
+    const toastMessageContent = document.querySelector('.toast-body');
+    toastMessageContent.textContent = '';
+    const toast = new bootstrap.Toast(toastMessage)
+    toast.hide();
 }
 
 
