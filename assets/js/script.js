@@ -4,27 +4,41 @@ document.getElementById('search-form').addEventListener('submit', async (e) => {
     const phoneKeyword = document.querySelector(".search-phone").value;
     if (phoneKeyword !== '') {
         try {
+            //show loader
+            toggleSpinner('block');
+
+            //get data
             const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${phoneKeyword}`);
             const data = await res.json();
             if(data.status) {
                 displayPhones(data.data);
             } else {
-                alert('No phone found');
+                showErrorMessage('No phone found');
             }
+
         } catch (error) {
             console.log(error);
         }
+
+
     } else {
         showErrorMessage("Please enter a keyword");
     }
+
+    //clear input
+    document.querySelector(".search-phone").value = '';
 });
 
 
 const displayPhones = phones => {
     const phoneGrid = document.querySelector("#phone-grid");
     phoneGrid.textContent = "";
+
+    //hide loader
+    toggleSpinner('none');
+
     phones.forEach(phone => {
-        console.log(phone);
+        //console.log(phone);
         const phoneCard = document.createElement("div");
         phoneCard.classList.add('col', 'phone-card');
         phoneCard.innerHTML = `
@@ -84,6 +98,12 @@ const displayPhoneDetails = phoneDetails => {
             </div>
         </div>
     `;
+}
+
+const toggleSpinner = displayStyle => {
+    console.log(displayStyle);
+    const spinner = document.querySelector('.spinner-border');
+    spinner.style.display = displayStyle;
 }
 
 const showErrorMessage = message => {
