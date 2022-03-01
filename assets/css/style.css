@@ -9,8 +9,6 @@
 body {
     font-family: 'Lato', sans-serif;
     background-color: rgba(0, 61, 167, 0.04);
-    /*background-image: url("../images/bg-pattern.png");*/
-    /*background-repeat: repeat;*/
 }
 a{
     text-decoration: none;
@@ -91,7 +89,7 @@ a{
     font-weight: 700;
     color: var(--secondary-clr);
 }
-/* Search */
+/* Search form */
 .phone-finder-search .form-control {
     padding: 10px 20px;
     border-radius: 4px 0 0 4px;

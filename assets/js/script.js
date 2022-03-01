@@ -14,10 +14,12 @@ document.getElementById('search-form').addEventListener('submit', async (e) => {
                 displayPhones(data.data);
             } else {
                 toggleSpinner('none'); //hide loader
-                showErrorMessage('No phone found');
+                showErrorMessage('No phone found'); //show error message
             }
         } catch (error) {
-            console.log(error);
+            toggleSpinner('none'); //hide loader
+            showErrorMessage('No phone found');  //show error message
+            //console.log(error);
         }
     } else {
         showErrorMessage("Please enter your desired phone name");
@@ -71,15 +73,16 @@ const displayPhones = (phones, offset = 20) => {
 
 const phoneDetails = async phoneSlug => {
     try {
-        const res = await fetch(`https://openapi.programming-hero.com/api/phone/${phoneSlug}`);
+        const res = await fetch(`https://openapi.programming-hero.com/api/phone/${phoneSlug}asd`);
         const data = await res.json();
         if(data.status) {
             displayPhoneDetails(data.data);
         } else {
-            showErrorMessage("Phone not found");
+            phoneDetailsNotFound()
         }
     } catch (error) {
-        console.log(error);
+        phoneDetailsNotFound()
+        //console.log(error);
     }
 }
 
@@ -160,6 +163,21 @@ const displayPhoneDetails = phoneDetails => {
                 </div>
                 ${phoneOtherDetails(phoneDetails)}
             </div>
+        </div>
+    `;
+}
+
+//if phone details not found
+const phoneDetailsNotFound = () => {
+    const phoneDetailsModal = document.querySelector("#phone-details-content");
+    phoneDetailsModal.textContent = "";
+
+    phoneDetailsModal.innerHTML = `
+        <div class="modal-body position-relative py-5">
+            <button type="button" class="close modal-close position-absolute top-0 end-0" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="fw-semi-bold pf-secondary-color text-center mb-0">Phone Details Not Found</h4>
         </div>
     `;
 }
