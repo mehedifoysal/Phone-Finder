@@ -27,7 +27,7 @@ document.getElementById('search-form').addEventListener('submit', async (e) => {
 });
 
 
-const displayPhones = phones => {
+const displayPhones = (phones, offset = 20) => {
     const phoneGrid = document.querySelector("#phone-grid");
     phoneGrid.textContent = "";
 
@@ -35,24 +35,24 @@ const displayPhones = phones => {
     toggleSpinner('none'); //hide loader
     toggleSearchResults('flex'); //show search results
 
-    console.log(phones.length);
-    if(phones.length > 20){
+    //load more button
+    if(phones.length > offset){
         const loadMoreBtnContainer = document.getElementById('load-more-btn-container');
         const loadMoreBtn = document.createElement("button");
+        loadMoreBtnContainer.textContent = ''; //remove if already exists
         loadMoreBtn.classList.add('btn-default', 'load-more');
         loadMoreBtn.innerHTML = `<i class="fas fa-chevron-down"></i> Load More`;
         loadMoreBtn.addEventListener('click', () => {
-            // loadMoreBtn.remove();
-            displayPhones(phones.slice(20, 40));
+            loadMoreBtn.remove();
+            displayPhones(phones, offset + 20); //increase offset
         });
         loadMoreBtnContainer.appendChild(loadMoreBtn);
     }
 
-    phones = phones.slice(0, 20); //display only 20 phones
-    console.log(phones);
-    phones?.forEach(phone => {
+    const slicedPhones = phones.slice(0, offset); //display only 20 phones
+    slicedPhones?.forEach(phone => {
         const phoneCard = document.createElement("div");
-        phoneCard.classList.add('col', 'phone-card');
+        phoneCard.classList.add('col', 'phone-card', 'text-center');
         phoneCard.innerHTML = `
             <div class="card shadow-sm border-0 p-2">
                 <div class="card-image text-center">
@@ -66,7 +66,6 @@ const displayPhones = phones => {
             </div>`;
         phoneGrid.appendChild(phoneCard);
     });
-
 
 }
 
@@ -196,7 +195,9 @@ const toggleSpinner = displayStyle => {
 
 const toggleSearchResults = displayStyle => {
     const phoneGrid = document.querySelector('#phone-grid');
+    const loadMoreBtn = document.querySelector('#load-more-btn-container');
     phoneGrid.style.display = displayStyle;
+    loadMoreBtn.style.display = displayStyle;
 }
 
 const showErrorMessage = message => {
