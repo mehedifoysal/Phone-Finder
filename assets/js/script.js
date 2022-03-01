@@ -15,7 +15,7 @@ document.getElementById('search-form').addEventListener('submit', async (e) => {
             console.log(error);
         }
     } else {
-        alert("Please enter a keyword");
+        showErrorMessage("Please enter a keyword");
     }
 });
 
@@ -33,9 +33,9 @@ const displayPhones = phones => {
                     <img src="${phone.image}" alt="${phone.phone_name}" class="img-fluid">
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">${phone.phone_name}</h5>
+                    <h5 class="card-title font-bold">${phone.phone_name}</h5>
                     <p class="card-text">Brand: ${phone.brand}</p>
-                    <button data-bs-toggle="modal" data-bs-target="#phone-details" onclick="phoneDetails('${phone.slug}')" class="btn-default">View More</button>
+                    <button data-bs-toggle="modal" data-bs-target="#phone-details" onclick="phoneDetails('${phone.slug}')" class="btn-default thin-btn">View Details</button>
                 </div>
             </div>`;
         phoneGrid.appendChild(phoneCard);
@@ -62,18 +62,16 @@ const displayPhoneDetails = phoneDetails => {
     phoneDetailsModal.textContent = "";
     const {chipSet, displaySize, memory, sensors, storage} = phoneDetails.mainFeatures;
     phoneDetailsModal.innerHTML = `
-        <div class="modal-header">
-            <h5 class="modal-title">${phoneDetails.name}</h5>
-            <button type="button" class="close btn-default" data-bs-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
         <div class="modal-body">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <img src="${phoneDetails.image}" alt="${phoneDetails.name}" class="img-fluid">
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-7">
+                    <button type="button" class="close btn-default" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3>${phoneDetails.name}</h3>
                     <h4>Main Features</h4>
                     <ul class="mainFeatures">
                         <li>Chipset: ${chipSet}</li>
@@ -88,7 +86,19 @@ const displayPhoneDetails = phoneDetails => {
     `;
 }
 
-
+const showErrorMessage = message => {
+    const errorMessage = document.querySelector('.error-message');
+    errorMessage.textContent = ''; //clear error message
+    const errorDiv = document.createElement('div');
+    errorDiv.classList.add('alert', 'alert-danger');
+    errorDiv.innerHTML = message;
+    errorMessage.appendChild(errorDiv);
+    errorMessage.style.display = 'block';
+    // setTimeout(() => {
+    //     errorMessage.style.display = 'none';
+    //     errorMessage.textContent = ''; //clear error message
+    // }, 3000);
+}
 
 
 

@@ -78,10 +78,18 @@ a{
     -o-transition: all 0.25s ease-in-out;
     transition: all 0.25s ease-in-out;
 }
+.btn-default.thin-btn{
+    padding: 6px 16px;
+}
 .btn-default:hover {
     background-color: var(--main-clr);
     color: #fff;
     text-decoration: none;
+}
+/* Logo */
+.logo{
+    font-weight: 700;
+    color: var(--secondary-clr);
 }
 /* Search */
 .phone-finder-search .form-control {
@@ -102,8 +110,18 @@ a{
 }
 
 
-
-
+/* Card */
+#phone-grid .card .card-image{
+    background-color: #f5f7fb;
+    padding: 15px 10px;
+    border-radius: 4px;
+}
+#phone-grid .card .card-title{
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--body-clr);
+    margin-bottom: 10px;
+}
 
 
 
