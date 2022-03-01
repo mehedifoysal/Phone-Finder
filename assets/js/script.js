@@ -4,8 +4,8 @@ document.getElementById('search-form').addEventListener('submit', async (e) => {
     const phoneKeyword = document.querySelector(".search-phone").value;
     if (phoneKeyword !== '') {
         try {
-            //show loader
-            toggleSpinner('block');
+            toggleSpinner('block'); //show loader
+            toggleSearchResults('none'); //hide search results
 
             //get data
             const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${phoneKeyword}`);
@@ -13,20 +13,17 @@ document.getElementById('search-form').addEventListener('submit', async (e) => {
             if(data.status) {
                 displayPhones(data.data);
             } else {
+                toggleSpinner('none'); //hide loader
                 showErrorMessage('No phone found');
             }
-
         } catch (error) {
             console.log(error);
         }
-
-
     } else {
-        showErrorMessage("Please enter a keyword");
+        showErrorMessage("Please enter your desired phone name");
     }
 
-    //clear input
-    document.querySelector(".search-phone").value = '';
+    document.querySelector(".search-phone").value = ''; //clear input
 });
 
 
@@ -34,11 +31,11 @@ const displayPhones = phones => {
     const phoneGrid = document.querySelector("#phone-grid");
     phoneGrid.textContent = "";
 
-    //hide loader
-    toggleSpinner('none');
+    hideErrorMessage(); //hide error message
+    toggleSpinner('none'); //hide loader
+    toggleSearchResults('flex'); //show search results
 
-    phones.forEach(phone => {
-        //console.log(phone);
+    phones?.forEach(phone => {
         const phoneCard = document.createElement("div");
         phoneCard.classList.add('col', 'phone-card');
         phoneCard.innerHTML = `
@@ -60,7 +57,6 @@ const phoneDetails = async phoneSlug => {
     try {
         const res = await fetch(`https://openapi.programming-hero.com/api/phone/${phoneSlug}`);
         const data = await res.json();
-        console.log(data);
         if(data.status) {
             displayPhoneDetails(data.data);
         } else {
@@ -101,9 +97,15 @@ const displayPhoneDetails = phoneDetails => {
 }
 
 const toggleSpinner = displayStyle => {
-    console.log(displayStyle);
     const spinner = document.querySelector('.spinner-border');
     spinner.style.display = displayStyle;
+}
+
+const toggleSearchResults = displayStyle => {
+    const phoneGrid = document.querySelector('#phone-grid');
+    const errorMessage = document.querySelector('.error-message');
+    phoneGrid.style.display = displayStyle;
+    errorMessage.style.display = displayStyle;
 }
 
 const showErrorMessage = message => {
@@ -118,6 +120,12 @@ const showErrorMessage = message => {
     //     errorMessage.style.display = 'none';
     //     errorMessage.textContent = ''; //clear error message
     // }, 3000);
+}
+
+const hideErrorMessage = () => {
+    const errorMessage = document.querySelector('.error-message');
+    errorMessage.style.display = 'none';
+    errorMessage.textContent = ''; //clear error message
 }
 
 
